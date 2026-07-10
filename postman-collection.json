@@ -1,0 +1,507 @@
+{
+	"info": {
+		"name": "Customer Lead CRM API",
+		"description": "Postman collection for Customer Lead CRM System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080/api",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"newuser\",\n\t\"password\": \"password123\",\n\t\"role\": \"EXECUTIVE\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": ["{{baseUrl}}"],
+							"path": ["users"]
+						}
+					}
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": ["{{baseUrl}}"],
+							"path": ["users"]
+						}
+					}
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/users/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["users", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"admin\",\n\t\"role\": \"ADMIN\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["users", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/users/2",
+							"host": ["{{baseUrl}}"],
+							"path": ["users", "2"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Lead Types",
+			"item": [
+				{
+					"name": "Create Lead Type",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Email Campaign\",\n\t\"description\": \"Leads from email marketing campaigns\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/lead-types",
+							"host": ["{{baseUrl}}"],
+							"path": ["lead-types"]
+						}
+					}
+				},
+				{
+					"name": "Get All Lead Types",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/lead-types",
+							"host": ["{{baseUrl}}"],
+							"path": ["lead-types"]
+						}
+					}
+				},
+				{
+					"name": "Get Lead Type by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/lead-types/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["lead-types", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Lead Type",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Website\",\n\t\"description\": \"Leads from website inquiries\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/lead-types/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["lead-types", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Lead Type",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/lead-types/5",
+							"host": ["{{baseUrl}}"],
+							"path": ["lead-types", "5"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Customer Leads",
+			"item": [
+				{
+					"name": "Create Lead",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"customerName\": \"Jane Wilson\",\n\t\"mobile\": \"9876543215\",\n\t\"email\": \"jane.wilson@example.com\",\n\t\"leadTypeId\": 1,\n\t\"city\": \"Boston\",\n\t\"address\": \"555 River St, Boston, MA 02101\",\n\t\"requirement\": \"CRM for medium business\",\n\t\"leadSource\": \"Website\",\n\t\"assignedExecutive\": \"executive\",\n\t\"status\": \"NEW\",\n\t\"priority\": \"WARM\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/leads",
+							"host": ["{{baseUrl}}"],
+							"path": ["leads"]
+						}
+					}
+				},
+				{
+					"name": "Get All Leads",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/leads",
+							"host": ["{{baseUrl}}"],
+							"path": ["leads"]
+						}
+					}
+				},
+				{
+					"name": "Get Lead by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/leads/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["leads", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Lead",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"customerName\": \"John Smith\",\n\t\"mobile\": \"9876543210\",\n\t\"email\": \"john.smith@example.com\",\n\t\"leadTypeId\": 1,\n\t\"city\": \"New York\",\n\t\"status\": \"INTERESTED\",\n\t\"priority\": \"HOT\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/leads/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["leads", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Lead",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/leads/5",
+							"host": ["{{baseUrl}}"],
+							"path": ["leads", "5"]
+						}
+					}
+				},
+				{
+					"name": "Search Leads",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"customerName\": \"John\",\n\t\"status\": \"INTERESTED\",\n\t\"priority\": \"HOT\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/leads/search",
+							"host": ["{{baseUrl}}"],
+							"path": ["leads", "search"]
+						}
+					}
+				},
+				{
+					"name": "Get Dashboard Stats",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/leads/dashboard",
+							"host": ["{{baseUrl}}"],
+							"path": ["leads", "dashboard"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Follow Ups",
+			"item": [
+				{
+					"name": "Create Follow Up",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"leadId\": 1,\n\t\"discussion\": \"Followed up on pricing proposal\",\n\t\"nextFollowUpDate\": \"2024-01-20\",\n\t\"status\": \"FOLLOW_UP\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/followups",
+							"host": ["{{baseUrl}}"],
+							"path": ["followups"]
+						}
+					}
+				},
+				{
+					"name": "Get All Follow Ups",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/followups",
+							"host": ["{{baseUrl}}"],
+							"path": ["followups"]
+						}
+					}
+				},
+				{
+					"name": "Get Follow Ups by Lead ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/followups/lead/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["followups", "lead", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Today's Follow Ups",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/followups/today",
+							"host": ["{{baseUrl}}"],
+							"path": ["followups", "today"]
+						}
+					}
+				},
+				{
+					"name": "Get Overdue Follow Ups",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/followups/overdue",
+							"host": ["{{baseUrl}}"],
+							"path": ["followups", "overdue"]
+						}
+					}
+				},
+				{
+					"name": "Get Tomorrow's Follow Ups",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/followups/tomorrow",
+							"host": ["{{baseUrl}}"],
+							"path": ["followups", "tomorrow"]
+						}
+					}
+				},
+				{
+					"name": "Update Follow Up",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"leadId\": 1,\n\t\"discussion\": \"Updated discussion notes\",\n\t\"nextFollowUpDate\": \"2024-01-25\",\n\t\"status\": \"INTERESTED\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/followups/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["followups", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Follow Up",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/followups/3",
+							"host": ["{{baseUrl}}"],
+							"path": ["followups", "3"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "Create Note",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"leadId\": 1,\n\t\"note\": \"Customer requested additional documentation\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/notes",
+							"host": ["{{baseUrl}}"],
+							"path": ["notes"]
+						}
+					}
+				},
+				{
+					"name": "Get All Notes",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/notes",
+							"host": ["{{baseUrl}}"],
+							"path": ["notes"]
+						}
+					}
+				},
+				{
+					"name": "Get Notes by Lead ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/notes/lead/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["notes", "lead", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Note",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"leadId\": 1,\n\t\"note\": \"Updated note content\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/notes/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["notes", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Note",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/notes/3",
+							"host": ["{{baseUrl}}"],
+							"path": ["notes", "3"]
+						}
+					}
+				}
+			]
+		}
+	]
+}
