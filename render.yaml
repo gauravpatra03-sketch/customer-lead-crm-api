@@ -9,7 +9,7 @@ services:
     runtime: java
     plan: free
     branch: main
-    buildCommand: ./mvnw clean install
+    buildCommand: mvn clean install
     startCommand: java -jar target/customer-lead-crm-api-0.0.1-SNAPSHOT.jar
     healthCheckPath: /swagger-ui.html
     envVars:
