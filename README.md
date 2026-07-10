@@ -257,34 +257,32 @@ export SPRING_DATASOURCE_PASSWORD=your_password
 
 The application can be deployed to any cloud platform (Render, Railway, AWS, etc.) that supports Java applications.
 
-### Deploy to Render (Web Service) + Railway (MySQL)
+### Deploy to Render (Docker) + Railway (MySQL)
 
-This project is configured to run the Spring Boot API on **Render** while the **MySQL database is hosted on Railway** (Render's free tier only provides PostgreSQL).
+This project is configured to run the Spring Boot API on **Render** as a **Docker container** (Java 21) while the **MySQL database is hosted on Railway**. Render has no native "java" runtime, so the `Dockerfile` builds and runs the app; `render.yaml` uses `runtime: docker`.
 
 **1. Set up MySQL on Railway**
 - Create a project on [Railway](https://railway.app) and add a **MySQL** plugin.
-- Open the MySQL service and copy the connection details. The provided URL looks like:
+- Open the MySQL service and copy the connection details. The provided `MYSQL_PUBLIC_URL` looks like:
   ```
-  mysql://user:password@host.railway.app:3306/customer_lead_crm
+  mysql://user:password@host.railway.app:3306/railway
   ```
 - You can run `database/mysql-script.sql` against this database, or let `spring.jpa.hibernate.ddl-auto=update` create the schema on first start.
 
 **2. Push this repo to GitHub**
-- This repo already contains `system.properties` (Java 21) and `render.yaml`.
+- This repo already contains `Dockerfile`, `.dockerignore`, and `render.yaml` (docker runtime).
 
 **3. Create the Render Web Service**
-- In Render, click **New → Web Service** and connect this GitHub repo.
-- Render will detect `system.properties` and use Java 21. The `render.yaml` sets:
-  - Build command: `./mvnw clean install`
-  - Start command: `java -jar target/customer-lead-crm-api-0.0.1-SNAPSHOT.jar`
+- In Render, click **New → Web Service** (or **Blueprint**) and connect this GitHub repo.
+- Render auto-detects the `Dockerfile` and builds the image (Java 21 via Eclipse Temurin).
 - In the **Environment** section, add these variables (copy values from your Railway MySQL connection string):
   | Key | Value (from Railway) |
   |-----|----------------------|
-  | `SPRING_DATASOURCE_URL` | `jdbc:mysql://user:password@host.railway.app:3306/customer_lead_crm?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true` |
-  | `SPRING_DATASOURCE_USERNAME` | Railway MySQL username |
-  | `SPRING_DATASOURCE_PASSWORD` | Railway MySQL password |
+  | `SPRING_DATASOURCE_URL` | `jdbc:` + your `MYSQL_PUBLIC_URL` + `?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true` |
+  | `SPRING_DATASOURCE_USERNAME` | Railway `MYSQLUSER` (e.g. `root`) |
+  | `SPRING_DATASOURCE_PASSWORD` | Railway `MYSQLPASSWORD` |
   | `CORS_ALLOWED_ORIGINS` | Your frontend URL (e.g. `https://your-frontend.onrender.com`) |
-- Render automatically provides the `PORT` variable, so no manual port setting is needed.
+- Render automatically provides the `PORT` variable; the app reads `server.port=${PORT:8080}`, so no manual port setting is needed.
 
 **4. Deploy**
 - Click **Deploy**. Once live, the API is available at the Render URL and Swagger UI at `/swagger-ui.html`.

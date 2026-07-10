@@ -1,16 +1,16 @@
 # Render deployment configuration for customer-lead-crm-api
-# This deploys the Spring Boot web service. The MySQL database is hosted on Railway.
+# This deploys the Spring Boot API as a Docker container. The MySQL database is hosted on Railway.
+# Render does not have a native "java" runtime, so we build/run via Docker (Java 21).
 # After creating this service on Render, set the environment variables below
 # using the connection details from your Railway MySQL instance.
 
 services:
   - type: web
     name: customer-lead-crm-api
-    runtime: java
+    runtime: docker
     plan: free
     branch: main
-    buildCommand: mvn clean install
-    startCommand: java -jar target/customer-lead-crm-api-0.0.1-SNAPSHOT.jar
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /swagger-ui.html
     envVars:
       # Copy these values from your Railway MySQL connection string.
@@ -24,4 +24,4 @@ services:
       # Set this to your frontend URL in production (leave as localhost for API-only testing)
       - key: CORS_ALLOWED_ORIGINS
         value: http://localhost:4200
-      # Render automatically provides the PORT variable; no need to set it manually.
+      # Render automatically provides the PORT variable; the app reads server.port=${PORT:8080}
